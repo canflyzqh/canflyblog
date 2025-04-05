@@ -1,38 +1,217 @@
-<!-- 在原有categories结构中新增以下分类 -->
-<div class="category">
-    <h2>开发与运维</h2>
-    <div class="link-item">
-        <a href="https://bolt.new/"  target="_blank">
-            <span class="link-icon">⚡</span>
-            Bolt New - 快速启动开发环境 
-        </a>
-    </div>
-    <div class="link-item">
-        <a href="https://www.spaceship.com/"  target="_blank">
-            <span class="link-icon">🚀</span>
-            Spaceship - 云部署平台 
-        </a>
-    </div>
-    <div class="link-item">
-        <a href="https://github.com/"  target="_blank">
-            <span class="link-icon">🐙</span>
-            GitHub - 代码托管平台 
-        </a>
-    </div>
-    <div class="link-item">
-        <a href="https://dash.cloudflare.com/"  target="_blank">
-            <span class="link-icon">🛡️</span>
-            Cloudflare控制台 
-        </a>
-    </div>
-</div>
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>全栈工具导航</title>
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --background-color: #f8f9fa;
+        }
+        body {
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 2rem;
+            background: var(--background-color);
+            color: var(--primary-color);
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 3rem;
+            padding: 2rem;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            padding: 1rem;
+        }
+        .category {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            transition: transform 0.2s;
+        }
+        .category:hover {
+            transform: translateY(-3px);
+        }
+        .category h2 {
+            color: var(--secondary-color);
+            margin: 0 0 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--secondary-color);
+        }
+        .link-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .link-item {
+            margin: 0.75rem 0;
+            padding: 0.8rem;
+            border-radius: 6px;
+            transition: background 0.2s;
+        }
+        .link-item:hover {
+            background: #f0f8ff;
+        }
+        .link-item a {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            color: var(--primary-color);
+        }
+        .link-icon {
+            width: 24px;
+            height: 24px;
+            margin-right: 12px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1em;
+        }
+        @media (max-width: 768px) {
+            body {
+                padding: 1rem;
+            }
+            .grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <h1>全栈工具导航</h1>
+        <p>整合开发/设计/AI/数据分析的完整工作流</p>
+    </header>
  
-<div class="category">
-    <h2>数据分析</h2>
-    <div class="link-item">
-        <a href="https://analytics.google.com/analytics/web/#/provision/create"  target="_blank">
-            <span class="link-icon">📊</span>
-            Google Analytics - 网站分析 
-        </a>
+    <div class="grid">
+        <!-- AI工具 -->
+        <div class="category">
+            <h2>🤖 AI工具</h2>
+            <ul class="link-list">
+                <li class="link-item">
+                    <a href="https://www.liblib.art/inspiration"  target="_blank">
+                        <span class="link-icon">🎨</span>
+                        Liblib艺术灵感 
+                    </a>
+                </li>
+                <li class="link-item">
+                    <a href="https://vegaai.net/text2Image"  target="_blank">
+                        <span class="link-icon">🖼️</span>
+                        VegaAI文生图 
+                    </a>
+                </li>
+                <li class="link-item">
+                    <a href="https://klingai.kuaishou.com/image-to-video/58176481"  target="_blank">
+                        <span class="link-icon">🎥</span>
+                        KlingAI视频生成 
+                    </a>
+                </li>
+                <li class="link-item">
+                    <a href="https://gemini.google.com/app/9831b92b60b36b10"  target="_blank">
+                        <span class="link-icon">🧠</span>
+                        Gemini助手 
+                    </a>
+                </li>
+            </ul>
+        </div>
+ 
+        <!-- 开发运维 -->
+        <div class="category">
+            <h2>⚙️ 开发运维</h2>
+            <ul class="link-list">
+                <li class="link-item">
+                    <a href="https://bolt.new/"  target="_blank">
+                        <span class="link-icon">⚡</span>
+                        Bolt快速开发 
+                    </a>
+                </li>
+                <li class="link-item">
+                    <a href="https://www.spaceship.com/"  target="_blank">
+                        <span class="link-icon">🚀</span>
+                        Spaceship云部署 
+                    </a>
+                </li>
+                <li class="link-item">
+                    <a href="https://github.com/"  target="_blank">
+                        <span class="link-icon">🐙</span>
+                        GitHub代码托管 
+                    </a>
+                </li>
+                <li class="link-item">
+                    <a href="https://dash.cloudflare.com/"  target="_blank">
+                        <span class="link-icon">🛡️</span>
+                        Cloudflare控制台 
+                    </a>
+                </li>
+            </ul>
+        </div>
+ 
+        <!-- 数据分析 -->
+        <div class="category">
+            <h2>📊 数据分析</h2>
+            <ul class="link-list">
+                <li class="link-item">
+                    <a href="https://analytics.google.com/analytics/web/#/provision/create"  target="_blank">
+                        <span class="link-icon">📈</span>
+                        Google Analytics 
+                    </a>
+                </li>
+            </ul>
+        </div>
+ 
+        <!-- 企业服务 -->
+        <div class="category">
+            <h2>🏢 企业服务</h2>
+            <ul class="link-list">
+                <li class="link-item">
+                    <a href="https://bytedance.larkoffice.com/docx/YNj2dVYo7o4L1Uxilq2c6A3Qnuc"  target="_blank">
+                        <span class="link-icon">📄</span>
+                        飞书文档协作 
+                    </a>
+                </li>
+                <li class="link-item">
+                    <a href="https://www.jinye.cn/cas/login?service=https%3A%2F%2Fwww.jinye.cn%2Fmarketing-orderplatform%2Fcascallback"  target="_blank">
+                        <span class="link-icon">🔑</span>
+                        金叶科技系统 
+                    </a>
+                </li>
+            </ul>
+        </div>
+ 
+        <!-- 其他工具 -->
+        <div class="category">
+            <h2>🔧 其他工具</h2>
+            <ul class="link-list">
+                <li class="link-item">
+                    <a href="https://i.meiyijia.com.cn/"  target="_blank">
+                        <span class="link-icon">🏠</span>
+                        美宜家设计平台 
+                    </a>
+                </li>
+                <li class="link-item">
+                    <a href="https://m.ixigua.com/user/86969682615?list_entrance=homepage"  target="_blank">
+                        <span class="link-icon">🎬</span>
+                        西瓜视频创作 
+                    </a>
+                </li>
+                <li class="link-item">
+                    <a href="https://scys.com/"  target="_blank">
+                        <span class="link-icon">🔍</span>
+                        SCYS工具平台 
+                    </a>
+                </li>
+            </ul>
+        </div>
     </div>
-</div>
+</body>
+</html>
