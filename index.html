@@ -3,15 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>中国热门网站导航</title>
+    <title>第一个导航站</title>
     <style>
         :root {
             --primary-color: #2c3e50;
-            --secondary-color: #e74c3c;
+            --secondary-color: #3498db;
+            --accent-color: #e74c3c;
             --background-color: #f8f9fa;
+            --card-bg: #ffffff;
         }
         body {
-            font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif;
+            font-family: 'Segoe UI', 'PingFang SC', sans-serif;
             max-width: 1280px;
             margin: 0 auto;
             padding: 2rem;
@@ -23,9 +25,35 @@
             text-align: center;
             margin-bottom: 3rem;
             padding: 2rem;
-            background: white;
+            background: var(--card-bg);
             border-radius: 12px;
             box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+        .header h1 {
+            color: var(--accent-color);
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+        .header p {
+            color: #7f8c8d;
+            font-size: 1.2rem;
+        }
+        .search-container {
+            margin: 2rem auto;
+            max-width: 600px;
+        }
+        #search {
+            width: 100%;
+            padding: 12px 20px;
+            border: 1px solid #ddd;
+            border-radius: 25px;
+            font-size: 1rem;
+            outline: none;
+            transition: all 0.3s;
+        }
+        #search:focus {
+            border-color: var(--secondary-color);
+            box-shadow: 0 0 0 3px rgba(52,152,219,0.2);
         }
         .grid {
             display: grid;
@@ -34,21 +62,33 @@
             padding: 1rem;
         }
         .category {
-            background: white;
+            background: var(--card-bg);
             padding: 1.5rem;
             border-radius: 8px;
             box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-            transition: transform 0.2s;
+            transition: transform 0.2s, box-shadow 0.2s;
         }
         .category:hover {
             transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
         }
         .category h2 {
             color: var(--secondary-color);
             margin: 0 0 1rem;
             padding-bottom: 0.5rem;
             border-bottom: 2px solid var(--secondary-color);
-            font-size: 1.4rem;
+            font-size: 1.3rem;
+            display: flex;
+            align-items: center;
+        }
+        .category h2::before {
+            content: "";
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            background: var(--accent-color);
+            border-radius: 50%;
+            margin-right: 10px;
         }
         .link-list {
             list-style: none;
@@ -59,10 +99,10 @@
             margin: 0.75rem 0;
             padding: 0.8rem;
             border-radius: 6px;
-            transition: background 0.2s;
+            transition: all 0.2s;
         }
         .link-item:hover {
-            background: #fef0f0;
+            background: rgba(52,152,219,0.1);
         }
         .link-item a {
             display: flex;
@@ -79,21 +119,23 @@
             align-items: center;
             justify-content: center;
             font-size: 1.1em;
-            background: #f0f0f0;
+            background: rgba(0,0,0,0.05);
             border-radius: 4px;
             padding: 2px;
+            flex-shrink: 0;
         }
-        .search-container {
-            margin: 2rem auto;
-            max-width: 600px;
+        .link-domain {
+            color: #7f8c8d;
+            font-size: 0.8em;
+            margin-left: 5px;
+            word-break: break-all;
         }
-        #search {
-            width: 100%;
-            padding: 12px 20px;
-            border: 1px solid #ddd;
-            border-radius: 25px;
-            font-size: 1rem;
-            outline: none;
+        footer {
+            text-align: center;
+            margin-top: 3rem;
+            padding: 1.5rem;
+            color: #7f8c8d;
+            font-size: 0.9rem;
         }
         @media (max-width: 768px) {
             body {
@@ -102,189 +144,163 @@
             .grid {
                 grid-template-columns: 1fr;
             }
+            .header {
+                padding: 1.5rem;
+            }
+            .header h1 {
+                font-size: 2rem;
+            }
         }
     </style>
 </head>
 <body>
     <header class="header">
-        <h1>中国热门网站导航</h1>
-        <p>一站式访问中国最受欢迎的20个网站</p>
+        <h1>第一个导航站</h1>
+        <p>一站式访问各类AI、开发与创意工具</p>
     </header>
  
     <div class="search-container">
-        <input type="text" id="search" placeholder="搜索网站..." onkeyup="filterLinks()">
+        <input type="text" id="search" placeholder="搜索工具..." onkeyup="filterLinks()">
     </div>
  
     <div class="grid">
-        <!-- 综合门户与搜索 -->
+        <!-- AI创意工具 -->
         <div class="category">
-            <h2>🔍 综合门户与搜索</h2>
+            <h2>AI创意工具</h2>
             <ul class="link-list">
                 <li class="link-item">
-                    <a href="https://www.baidu.com"  target="_blank">
-                        <span class="link-icon">🔎</span>
-                        百度 - 中国最大的搜索引擎 
+                    <a href="https://www.liblib.art/inspiration"  target="_blank">
+                        <span class="link-icon">🎨</span>
+                        Liblib艺术灵感 
+                        <span class="link-domain">liblib.art</span> 
                     </a>
                 </li>
                 <li class="link-item">
-                    <a href="https://www.qq.com"  target="_blank">
-                        <span class="link-icon">🦁</span>
-                        腾讯网 - 综合门户网站 
+                    <a href="https://vegaai.net/text2Image"  target="_blank">
+                        <span class="link-icon">🖼️</span>
+                        VegaAI文生图 
+                        <span class="link-domain">vegaai.net</span> 
                     </a>
                 </li>
                 <li class="link-item">
-                    <a href="https://www.sina.com.cn"  target="_blank">
-                        <span class="link-icon">📰</span>
-                        新浪网 - 新闻门户 
+                    <a href="https://klingai.kuaishou.com/image-to-video/58176481"  target="_blank">
+                        <span class="link-icon">🎥</span>
+                        KlingAI视频生成 
+                        <span class="link-domain">klingai.kuaishou.com</span> 
                     </a>
                 </li>
                 <li class="link-item">
-                    <a href="https://hao.360.com"  target="_blank">
+                    <a href="https://gemini.google.com/app/9831b92b60b36b10"  target="_blank">
+                        <span class="link-icon">🤖</span>
+                        Gemini助手 
+                        <span class="link-domain">gemini.google.com</span> 
+                    </a>
+                </li>
+            </ul>
+        </div>
+ 
+        <!-- 开发与运维 -->
+        <div class="category">
+            <h2>开发与运维</h2>
+            <ul class="link-list">
+                <li class="link-item">
+                    <a href="https://bolt.new/"  target="_blank">
+                        <span class="link-icon">⚡</span>
+                        Bolt快速开发 
+                        <span class="link-domain">bolt.new</span> 
+                    </a>
+                </li>
+                <li class="link-item">
+                    <a href="https://www.spaceship.com/"  target="_blank">
+                        <span class="link-icon">🚀</span>
+                        Spaceship云部署 
+                        <span class="link-domain">spaceship.com</span> 
+                    </a>
+                </li>
+                <li class="link-item">
+                    <a href="https://github.com/"  target="_blank">
+                        <span class="link-icon">🐙</span>
+                        GitHub代码托管 
+                        <span class="link-domain">github.com</span> 
+                    </a>
+                </li>
+                <li class="link-item">
+                    <a href="https://dash.cloudflare.com/"  target="_blank">
+                        <span class="link-icon">🛡️</span>
+                        Cloudflare控制台 
+                        <span class="link-domain">dash.cloudflare.com</span> 
+                    </a>
+                </li>
+            </ul>
+        </div>
+ 
+        <!-- 数据分析 -->
+        <div class="category">
+            <h2>数据分析</h2>
+            <ul class="link-list">
+                <li class="link-item">
+                    <a href="https://analytics.google.com/analytics/web/#/provision/create"  target="_blank">
+                        <span class="link-icon">📊</span>
+                        Google Analytics 
+                        <span class="link-domain">analytics.google.com</span> 
+                    </a>
+                </li>
+            </ul>
+        </div>
+ 
+        <!-- 文档与协作 -->
+        <div class="category">
+            <h2>文档与协作</h2>
+            <ul class="link-list">
+                <li class="link-item">
+                    <a href="https://bytedance.larkoffice.com/docx/YNj2dVYo7o4L1Uxilq2c6A3Qnuc"  target="_blank">
+                        <span class="link-icon">📄</span>
+                        飞书文档协作 
+                        <span class="link-domain">larkoffice.com</span> 
+                    </a>
+                </li>
+            </ul>
+        </div>
+ 
+        <!-- 其他工具 -->
+        <div class="category">
+            <h2>其他工具</h2>
+            <ul class="link-list">
+                <li class="link-item">
+                    <a href="https://i.meiyijia.com.cn/"  target="_blank">
                         <span class="link-icon">🏠</span>
-                        360导航 - 网址导航 
-                    </a>
-                </li>
-            </ul>
-        </div>
- 
-        <!-- 电子商务 -->
-        <div class="category">
-            <h2>🛒 电子商务</h2>
-            <ul class="link-list">
-                <li class="link-item">
-                    <a href="https://www.taobao.com"  target="_blank">
-                        <span class="link-icon">🛍️</span>
-                        淘宝网 - C2C电商平台 
+                        美宜家设计平台 
+                        <span class="link-domain">meiyijia.com.cn</span> 
                     </a>
                 </li>
                 <li class="link-item">
-                    <a href="https://www.jd.com"  target="_blank">
-                        <span class="link-icon">📦</span>
-                        京东 - B2C电商平台 
+                    <a href="https://m.ixigua.com/user/86969682615?list_entrance=homepage"  target="_blank">
+                        <span class="link-icon">🎬</span>
+                        西瓜视频创作 
+                        <span class="link-domain">ixigua.com</span> 
                     </a>
                 </li>
                 <li class="link-item">
-                    <a href="https://www.pinduoduo.com"  target="_blank">
-                        <span class="link-icon">👥</span>
-                        拼多多 - 社交电商 
-                    </a>
-                </li>
-            </ul>
-        </div>
- 
-        <!-- 社交媒体 -->
-        <div class="category">
-            <h2>💬 社交媒体</h2>
-            <ul class="link-list">
-                <li class="link-item">
-                    <a href="https://weixin.qq.com"  target="_blank">
-                        <span class="link-icon">💚</span>
-                        微信 - 即时通讯 
+                    <a href="https://scys.com/"  target="_blank">
+                        <span class="link-icon">🔍</span>
+                        SCYS工具平台 
+                        <span class="link-domain">scys.com</span> 
                     </a>
                 </li>
                 <li class="link-item">
-                    <a href="https://www.weibo.com"  target="_blank">
-                        <span class="link-icon">🐦</span>
-                        微博 - 社交媒体 
-                    </a>
-                </li>
-                <li class="link-item">
-                    <a href="https://www.zhihu.com"  target="_blank">
-                        <span class="link-icon">❓</span>
-                        知乎 - 问答社区 
-                    </a>
-                </li>
-            </ul>
-        </div>
- 
-        <!-- 视频与娱乐 -->
-        <div class="category">
-            <h2>🎬 视频与娱乐</h2>
-            <ul class="link-list">
-                <li class="link-item">
-                    <a href="https://www.bilibili.com"  target="_blank">
-                        <span class="link-icon">📺</span>
-                        哔哩哔哩 - 弹幕视频 
-                    </a>
-                </li>
-                <li class="link-item">
-                    <a href="https://www.douyin.com"  target="_blank">
-                        <span class="link-icon">🎵</span>
-                        抖音 - 短视频平台 
-                    </a>
-                </li>
-                <li class="link-item">
-                    <a href="https://www.iqiyi.com"  target="_blank">
-                        <span class="link-icon">🎞️</span>
-                        爱奇艺 - 在线视频 
-                    </a>
-                </li>
-            </ul>
-        </div>
- 
-        <!-- 生活服务 -->
-        <div class="category">
-            <h2>🏡 生活服务</h2>
-            <ul class="link-list">
-                <li class="link-item">
-                    <a href="https://www.meituan.com"  target="_blank">
-                        <span class="link-icon">🍔</span>
-                        美团 - 本地生活服务 
-                    </a>
-                </li>
-                <li class="link-item">
-                    <a href="https://www.ctrip.com"  target="_blank">
-                        <span class="link-icon">✈️</span>
-                        携程 - 在线旅游 
-                    </a>
-                </li>
-                <li class="link-item">
-                    <a href="https://www.58.com"  target="_blank">
-                        <span class="link-icon">🏘️</span>
-                        58同城 - 分类信息 
-                    </a>
-                </li>
-            </ul>
-        </div>
- 
-        <!-- 工具与科技 -->
-        <div class="category">
-            <h2>🛠️ 工具与科技</h2>
-            <ul class="link-list">
-                <li class="link-item">
-                    <a href="https://www.wps.cn"  target="_blank">
-                        <span class="link-icon">📝</span>
-                        WPS办公 - 办公软件 
-                    </a>
-                </li>
-                <li class="link-item">
-                    <a href="https://www.tianyancha.com"  target="_blank">
-                        <span class="link-icon">🏢</span>
-                        天眼查 - 企业信息 
-                    </a>
-                </li>
-            </ul>
-        </div>
- 
-        <!-- 新兴势力 -->
-        <div class="category">
-            <h2>🚀 新兴势力</h2>
-            <ul class="link-list">
-                <li class="link-item">
-                    <a href="https://www.dewu.com"  target="_blank">
-                        <span class="link-icon">👟</span>
-                        得物 - 潮流电商 
-                    </a>
-                </li>
-                <li class="link-item">
-                    <a href="https://www.xiaohongshu.com"  target="_blank">
-                        <span class="link-icon">📕</span>
-                        小红书 - 生活方式社区 
+                    <a href="https://www.jinye.cn/cas/login?service=https%3A%2F%2Fwww.jinye.cn%2Fmarketing-orderplatform%2Fcascallback"  target="_blank">
+                        <span class="link-icon">🔑</span>
+                        金叶科技系统 
+                        <span class="link-domain">jinye.cn</span> 
                     </a>
                 </li>
             </ul>
         </div>
     </div>
+ 
+    <footer>
+        <p>© 2023 第一个导航站 | 最后更新: 2023年12月</p>
+    </footer>
  
     <script>
         function filterLinks() {
