@@ -3,479 +3,392 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>第一个导航站</title>
+    <title>CANFLY导航</title>
     <style>
-        :root {
-            --primary-color: #2c3e50;
-            --secondary-color: #3498db;
-            --accent-color: #e74c3c;
-            --background-color: #f8f9fa;
-            --card-bg: #ffffff;
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
+        
         body {
-            font-family: 'Segoe UI', 'PingFang SC', sans-serif;
-            max-width: 1280px;
-            margin: 0 auto;
-            padding: 2rem;
-            background: var(--background-color);
-            color: var(--primary-color);
+            font-family: 'Microsoft YaHei', sans-serif;
+            background: #f8f9fa;
+            color: #333;
             line-height: 1.6;
         }
-        .header {
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
             text-align: center;
-            margin-bottom: 3rem;
-            padding: 2rem;
-            background: var(--card-bg);
-            border-radius: 12px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            padding: 40px 0;
+            background: linear-gradient(135deg, #0078ff 0%, #00c6ff 100%);
+            color: white;
+            margin-bottom: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,120,255,0.2);
         }
-        .header h1 {
-            color: var(--accent-color);
-            font-size: 2.5rem;
-            margin-bottom: 0.5rem;
+        
+        .logo {
+            font-size: 2.8em;
+            font-weight: bold;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
         }
-        .header p {
-            color: #7f8c8d;
-            font-size: 1.2rem;
-        }
-        .search-container {
-            margin: 2rem auto;
+        
+        .search-box {
             max-width: 600px;
+            margin: 20px auto;
+            position: relative;
         }
-        #search {
+        
+        .search-box input {
             width: 100%;
-            padding: 12px 20px;
-            border: 1px solid #ddd;
-            border-radius: 25px;
-            font-size: 1rem;
+            padding: 15px 25px;
+            border: none;
+            border-radius: 30px;
+            font-size: 16px;
             outline: none;
             transition: all 0.3s;
+            background: rgba(255,255,255,0.9);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
-        #search:focus {
-            border-color: var(--secondary-color);
-            box-shadow: 0 0 0 3px rgba(52,152,219,0.2);
+        
+        .search-box input:focus {
+            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+            background: white;
         }
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 1.5rem;
-            padding: 1rem;
-        }
+        
         .category {
-            background: var(--card-bg);
-            padding: 1.5rem;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-            transition: transform 0.2s, box-shadow 0.2s;
+            margin: 30px 0;
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
         }
-        .category:hover {
+        
+        .category-title {
+            font-size: 1.6em;
+            margin-bottom: 20px;
+            padding-left: 15px;
+            border-left: 4px solid #0078ff;
+            color: #2c3e50;
+        }
+        
+        .site-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        
+        .site-item {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            transition: all 0.3s;
+            text-decoration: none;
+            color: #333;
+            display: flex;
+            align-items: center;
+            border: 1px solid #eee;
+        }
+        
+        .site-item:hover {
             transform: translateY(-3px);
             box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            border-color: #0078ff;
         }
-        .category h2 {
-            color: var(--secondary-color);
-            margin: 0 0 1rem;
-            padding-bottom: 0.5rem;
-            border-bottom: 2px solid var(--secondary-color);
-            font-size: 1.3rem;
-            display: flex;
-            align-items: center;
+        
+        .site-icon {
+            width: 40px;
+            height: 40px;
+            margin-right: 15px;
+            border-radius: 8px;
+            object-fit: cover;
         }
-        .category h2::before {
-            content: "";
-            display: inline-block;
-            width: 8px;
-            height: 8px;
-            background: var(--accent-color);
-            border-radius: 50%;
-            margin-right: 10px;
+        
+        .site-info {
+            flex: 1;
         }
-        .link-list {
-            list-style: none;
-            padding: 0;
-            margin: 0;
+        
+        .site-name {
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #2c3e50;
         }
-        .link-item {
-            margin: 0.75rem 0;
-            padding: 0.8rem;
-            border-radius: 6px;
-            transition: all 0.2s;
+        
+        .site-desc {
+            font-size: 0.9em;
+            color: #666;
         }
-        .link-item:hover {
-            background: rgba(52,152,219,0.1);
-        }
-        .link-item a {
-            display: flex;
-            align-items: center;
-            text-decoration: none;
-            color: var(--primary-color);
-            font-size: 1rem;
-        }
-        .link-icon {
-            width: 24px;
-            height: 24px;
-            margin-right: 12px;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.1em;
-            background: rgba(0,0,0,0.05);
-            border-radius: 4px;
-            padding: 2px;
-            flex-shrink: 0;
-        }
-        .link-domain {
-            color: #7f8c8d;
-            font-size: 0.8em;
-            margin-left: 5px;
-            word-break: break-all;
-        }
+        
         footer {
             text-align: center;
-            margin-top: 3rem;
-            padding: 1.5rem;
-            color: #7f8c8d;
-            font-size: 0.9rem;
+            padding: 30px;
+            margin-top: 50px;
+            color: #666;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
         }
+
         @media (max-width: 768px) {
-            body {
-                padding: 1rem;
-            }
-            .grid {
+            .site-grid {
                 grid-template-columns: 1fr;
             }
-            .header {
-                padding: 1.5rem;
+            
+            .container {
+                padding: 10px;
             }
-            .header h1 {
-                font-size: 2rem;
+            
+            .category {
+                padding: 15px;
             }
         }
     </style>
 </head>
 <body>
-    <header class="header">
-        <h1>第一个导航站</h1>
-        <p>一站式访问中国最受欢迎的网站与工具</p>
-    </header>
- 
-    <div class="search-container">
-        <input type="text" id="search" placeholder="搜索网站或工具..." onkeyup="filterLinks()">
+    <div class="container">
+        <header>
+            <div class="logo">CANFLY导航</div>
+            <div class="search-box">
+                <input type="text" placeholder="搜索网站...">
+            </div>
+        </header>
+        
+        <div class="category">
+            <h2 class="category-title">常用网站</h2>
+            <div class="site-grid">
+                <a href="https://www.baidu.com" class="site-item" target="_blank">
+                    <img src="https://www.baidu.com/img/baidu_logo.png" class="site-icon" alt="百度图标">
+                    <div class="site-info">
+                        <div class="site-name">百度</div>
+                        <div class="site-desc">全球最大的中文搜索引擎</div>
+                    </div>
+                </a>
+                <a href="https://www.zhihu.com" class="site-item" target="_blank">
+                    <img src="https://static.zhihu.com/heifetz/assets/apple-touch-icon-152.a53ae37b.png" class="site-icon" alt="知乎图标">
+                    <div class="site-info">
+                        <div class="site-name">知乎</div>
+                        <div class="site-desc">中文互联网高质量的问答社区</div>
+                    </div>
+                </a>
+                <a href="https://www.bilibili.com" class="site-item" target="_blank">
+                    <img src="https://www.bilibili.com/favicon.ico" class="site-icon" alt="B站图标">
+                    <div class="site-info">
+                        <div class="site-name">哔哩哔哩</div>
+                        <div class="site-desc">中国年轻世代高度聚集的文化社区</div>
+                    </div>
+                </a>
+                <a href="https://www.weibo.com" class="site-item" target="_blank">
+                    <img src="https://weibo.com/favicon.ico" class="site-icon" alt="微博图标">
+                    <div class="site-info">
+                        <div class="site-name">微博</div>
+                        <div class="site-desc">随时随地发现新鲜事</div>
+                    </div>
+                </a>
+            </div>
+        </div>
+        
+        <div class="category">
+            <h2 class="category-title">学习资源</h2>
+            <div class="site-grid">
+                <a href="https://www.icourse163.org" class="site-item" target="_blank">
+                    <img src="https://www.icourse163.org/favicon.ico" class="site-icon" alt="中国大学MOOC图标">
+                    <div class="site-info">
+                        <div class="site-name">中国大学MOOC</div>
+                        <div class="site-desc">优质的中文MOOC学习平台</div>
+                    </div>
+                </a>
+                <a href="https://www.runoob.com" class="site-item" target="_blank">
+                    <img src="https://static.runoob.com/images/favicon.ico" class="site-icon" alt="菜鸟教程图标">
+                    <div class="site-info">
+                        <div class="site-name">菜鸟教程</div>
+                        <div class="site-desc">编程技术学习网站</div>
+                    </div>
+                </a>
+                <a href="https://www.w3school.com.cn" class="site-item" target="_blank">
+                    <img src="https://www.w3school.com.cn/ui2019/logo-48-red.png" class="site-icon" alt="W3School图标">
+                    <div class="site-info">
+                        <div class="site-name">W3School</div>
+                        <div class="site-desc">Web技术教程</div>
+                    </div>
+                </a>
+                <a href="https://www.csdn.net" class="site-item" target="_blank">
+                    <img src="https://g.csdnimg.cn/static/logo/favicon32.ico" class="site-icon" alt="CSDN图标">
+                    <div class="site-info">
+                        <div class="site-name">CSDN</div>
+                        <div class="site-desc">专业开发者社区</div>
+                    </div>
+                </a>
+            </div>
+        </div>
+        
+        <div class="category">
+            <h2 class="category-title">实用工具</h2>
+            <div class="site-grid">
+                <a href="https://www.processon.com" class="site-item" target="_blank">
+                    <img src="https://www.processon.com/public_login/favicon.ico" class="site-icon" alt="ProcessOn图标">
+                    <div class="site-info">
+                        <div class="site-name">ProcessOn</div>
+                        <div class="site-desc">在线作图工具</div>
+                    </div>
+                </a>
+                <a href="https://www.photopea.com" class="site-item" target="_blank">
+                    <img src="https://www.photopea.com/promo/icon512.png" class="site-icon" alt="Photopea图标">
+                    <div class="site-info">
+                        <div class="site-name">Photopea</div>
+                        <div class="site-desc">在线PS工具</div>
+                    </div>
+                </a>
+                <a href="https://www.remove.bg" class="site-item" target="_blank">
+                    <img src="https://www.remove.bg/favicon-32x32.png" class="site-icon" alt="Remove.bg图标">
+                    <div class="site-info">
+                        <div class="site-name">Remove.bg</div>
+                        <div class="site-desc">在线抠图工具</div>
+                    </div>
+                </a>
+                <a href="https://www.ilovepdf.com" class="site-item" target="_blank">
+                    <img src="https://www.ilovepdf.com/img/favicons/favicon-32x32.png" class="site-icon" alt="iLovePDF图标">
+                    <div class="site-info">
+                        <div class="site-name">iLovePDF</div>
+                        <div class="site-desc">PDF在线工具</div>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        <div class="category">
+            <h2 class="category-title">AI工具</h2>
+            <div class="site-grid">
+                <a href="https://www.liblib.art/inspiration" class="site-item" target="_blank">
+                    <img src="https://www.liblib.art/static/images/favicon.ico" class="site-icon" alt="Liblib图标">
+                    <div class="site-info">
+                        <div class="site-name">Liblib</div>
+                        <div class="site-desc">AI绘画灵感社区</div>
+                    </div>
+                </a>
+                <a href="https://vegaai.net/text2Image" class="site-item" target="_blank">
+                    <img src="https://vegaai.net/assets/images/favicon.ico" class="site-icon" alt="VegaAI图标">
+                    <div class="site-info">
+                        <div class="site-name">VegaAI</div>
+                        <div class="site-desc">AI绘画工具</div>
+                    </div>
+                </a>
+                <a href="https://klingai.kuaishou.com/image-to-video/58176481" class="site-item" target="_blank">
+                    <img src="https://static.yximgs.com/udata/pkg/ks-merchant/kwai_merchant_admin_pc/static/favicon.ico" class="site-icon" alt="KlingAI图标">
+                    <div class="site-info">
+                        <div class="site-name">KlingAI</div>
+                        <div class="site-desc">AI视频生成工具</div>
+                    </div>
+                </a>
+                <a href="https://gemini.google.com/app/9831b92b60b36b10" class="site-item" target="_blank">
+                    <img src="https://www.gstatic.com/images/branding/product/1x/gemini_48dp.png" class="site-icon" alt="Gemini图标">
+                    <div class="site-info">
+                        <div class="site-name">Gemini</div>
+                        <div class="site-desc">Google AI助手</div>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        <div class="category">
+            <h2 class="category-title">设计资源</h2>
+            <div class="site-grid">
+                <a href="https://scys.com/" class="site-item" target="_blank">
+                    <img src="https://scys.com/assets/images/favicon.ico" class="site-icon" alt="SCYS图标">
+                    <div class="site-info">
+                        <div class="site-name">SCYS</div>
+                        <div class="site-desc">设计资源网站</div>
+                    </div>
+                </a>
+                <a href="https://i.meiyijia.com.cn/" class="site-item" target="_blank">
+                    <img src="https://i.meiyijia.com.cn/static/images/favicon.ico" class="site-icon" alt="美易家图标">
+                    <div class="site-info">
+                        <div class="site-name">美易家</div>
+                        <div class="site-desc">设计素材平台</div>
+                    </div>
+                </a>
+                <a href="https://m.ixigua.com/user/86969682615" class="site-item" target="_blank">
+                    <img src="https://sf1-cdn-tos.douyinstatic.com/obj/ies-hotsoon-draft/ixigua/static/images/favicon.ico" class="site-icon" alt="西瓜视频图标">
+                    <div class="site-info">
+                        <div class="site-name">西瓜视频</div>
+                        <div class="site-desc">视频创作平台</div>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        <div class="category">
+            <h2 class="category-title">开发工具</h2>
+            <div class="site-grid">
+                <a href="https://github.com/" class="site-item" target="_blank">
+                    <img src="https://github.githubassets.com/favicons/favicon.svg" class="site-icon" alt="GitHub图标">
+                    <div class="site-info">
+                        <div class="site-name">GitHub</div>
+                        <div class="site-desc">代码托管平台</div>
+                    </div>
+                </a>
+                <a href="https://dash.cloudflare.com/" class="site-item" target="_blank">
+                    <img src="https://www.cloudflare.com/favicon.ico" class="site-icon" alt="Cloudflare图标">
+                    <div class="site-info">
+                        <div class="site-name">Cloudflare</div>
+                        <div class="site-desc">网站加速和安全</div>
+                    </div>
+                </a>
+                <a href="https://analytics.google.com/analytics/web/#/provision/create" class="site-item" target="_blank">
+                    <img src="https://www.google.com/images/branding/product/ico/analytics_2020q4_48dp.png" class="site-icon" alt="Google Analytics图标">
+                    <div class="site-info">
+                        <div class="site-name">Google Analytics</div>
+                        <div class="site-desc">网站数据分析</div>
+                    </div>
+                </a>
+                <a href="https://bolt.new/" class="site-item" target="_blank">
+                    <img src="https://bolt.new/assets/images/favicon.ico" class="site-icon" alt="Bolt图标">
+                    <div class="site-info">
+                        <div class="site-name">Bolt</div>
+                        <div class="site-desc">快速开发工具</div>
+                    </div>
+                </a>
+                <a href="https://www.spaceship.com/" class="site-item" target="_blank">
+                    <img src="https://www.spaceship.com/assets/images/favicon.ico" class="site-icon" alt="Spaceship图标">
+                    <div class="site-info">
+                        <div class="site-name">Spaceship</div>
+                        <div class="site-desc">开发工具集合</div>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        <div class="category">
+            <h2 class="category-title">文档与协作</h2>
+            <div class="site-grid">
+                <a href="https://bytedance.larkoffice.com/docx/YNj2dVYo7o4L1Uxilq2c6A3Qnuc" class="site-item" target="_blank">
+                    <img src="https://sf1-cdn-tos.douyinstatic.com/obj/ies-hotsoon-draft/lark/static/images/favicon.ico" class="site-icon" alt="飞书文档图标">
+                    <div class="site-info">
+                        <div class="site-name">飞书文档</div>
+                        <div class="site-desc">在线协作文档</div>
+                    </div>
+                </a>
+                <a href="https://www.jinye.cn/cas/login?service=https%3A%2F%2Fwww.jinye.cn%2Fmarketing-orderplatform%2Fcascallback" class="site-item" target="_blank">
+                    <img src="https://www.jinye.cn/static/images/favicon.ico" class="site-icon" alt="金叶平台图标">
+                    <div class="site-info">
+                        <div class="site-name">金叶平台</div>
+                        <div class="site-desc">营销订单平台</div>
+                    </div>
+                </a>
+            </div>
+        </div>
     </div>
- 
-    <div class="grid">
-        <!-- 综合门户与搜索 -->
-        <div class="category">
-            <h2>🔍 综合门户与搜索</h2>
-            <ul class="link-list">
-                <li class="link-item">
-                    <a href="https://www.baidu.com"  target="_blank">
-                        <span class="link-icon">🔎</span>
-                        百度 
-                        <span class="link-domain">baidu.com</span> 
-                    </a>
-                </li>
-                <li class="link-item">
-                    <a href="https://www.qq.com"  target="_blank">
-                        <span class="link-icon">🦁</span>
-                        腾讯网 
-                        <span class="link-domain">qq.com</span> 
-                    </a>
-                </li>
-                <li class="link-item">
-                    <a href="https://www.sina.com.cn"  target="_blank">
-                        <span class="link-icon">📰</span>
-                        新浪网 
-                        <span class="link-domain">sina.com.cn</span> 
-                    </a>
-                </li>
-                <li class="link-item">
-                    <a href="https://hao.360.com"  target="_blank">
-                        <span class="link-icon">🏠</span>
-                        360导航 
-                        <span class="link-domain">hao.360.com</span> 
-                    </a>
-                </li>
-            </ul>
-        </div>
- 
-        <!-- 电子商务 -->
-        <div class="category">
-            <h2>🛒 电子商务</h2>
-            <ul class="link-list">
-                <li class="link-item">
-                    <a href="https://www.taobao.com"  target="_blank">
-                        <span class="link-icon">🛍️</span>
-                        淘宝网 
-                        <span class="link-domain">taobao.com</span> 
-                    </a>
-                </li>
-                <li class="link-item">
-                    <a href="https://www.jd.com"  target="_blank">
-                        <span class="link-icon">📦</span>
-                        京东 
-                        <span class="link-domain">jd.com</span> 
-                    </a>
-                </li>
-                <li class="link-item">
-                    <a href="https://www.pinduoduo.com"  target="_blank">
-                        <span class="link-icon">👥</span>
-                        拼多多 
-                        <span class="link-domain">pinduoduo.com</span> 
-                    </a>
-                </li>
-            </ul>
-        </div>
- 
-        <!-- 社交媒体 -->
-        <div class="category">
-            <h2>💬 社交媒体</h2>
-            <ul class="link-list">
-                <li class="link-item">
-                    <a href="https://weixin.qq.com"  target="_blank">
-                        <span class="link-icon">💚</span>
-                        微信 
-                        <span class="link-domain">weixin.qq.com</span> 
-                    </a>
-                </li>
-                <li class="link-item">
-                    <a href="https://www.weibo.com"  target="_blank">
-                        <span class="link-icon">🐦</span>
-                        微博 
-                        <span class="link-domain">weibo.com</span> 
-                    </a>
-                </li>
-                <li class="link-item">
-                    <a href="https://www.zhihu.com"  target="_blank">
-                        <span class="link-icon">❓</span>
-                        知乎 
-                        <span class="link-domain">zhihu.com</span> 
-                    </a>
-                </li>
-            </ul>
-        </div>
- 
-        <!-- 视频与娱乐 -->
-        <div class="category">
-            <h2>🎬 视频与娱乐</h2>
-            <ul class="link-list">
-                <li class="link-item">
-                    <a href="https://www.bilibili.com"  target="_blank">
-                        <span class="link-icon">📺</span>
-                        哔哩哔哩 
-                        <span class="link-domain">bilibili.com</span> 
-                    </a>
-                </li>
-                <li class="link-item">
-                    <a href="https://www.douyin.com"  target="_blank">
-                        <span class="link-icon">🎵</span>
-                        抖音 
-                        <span class="link-domain">douyin.com</span> 
-                    </a>
-                </li>
-                <li class="link-item">
-                    <a href="https://www.iqiyi.com"  target="_blank">
-                        <span class="link-icon">🎞️</span>
-                        爱奇艺 
-                        <span class="link-domain">iqiyi.com</span> 
-                    </a>
-                </li>
-            </ul>
-        </div>
- 
-        <!-- 生活服务 -->
-        <div class="category">
-            <h2>🏡 生活服务</h2>
-            <ul class="link-list">
-                <li class="link-item">
-                    <a href="https://www.meituan.com"  target="_blank">
-                        <span class="link-icon">🍔</span>
-                        美团 
-                        <span class="link-domain">meituan.com</span> 
-                    </a>
-                </li>
-                <li class="link-item">
-                    <a href="https://www.ctrip.com"  target="_blank">
-                        <span class="link-icon">✈️</span>
-                        携程 
-                        <span class="link-domain">ctrip.com</span> 
-                    </a>
-                </li>
-                <li class="link-item">
-                    <a href="https://www.58.com"  target="_blank">
-                        <span class="link-icon">🏘️</span>
-                        58同城 
-                        <span class="link-domain">58.com</span> 
-                    </a>
-                </li>
-            </ul>
-        </div>
- 
-        <!-- 工具与科技 -->
-        <div class="category">
-            <h2>🛠️ 工具与科技</h2>
-            <ul class="link-list">
-                <li class="link-item">
-                    <a href="https://www.wps.cn"  target="_blank">
-                        <span class="link-icon">📝</span>
-                        WPS办公 
-                        <span class="link-domain">wps.cn</span> 
-                    </a>
-                </li>
-                <li class="link-item">
-                    <a href="https://www.tianyancha.com"  target="_blank">
-                        <span class="link-icon">🏢</span>
-                        天眼查 
-                        <span class="link-domain">tianyancha.com</span> 
-                    </a>
-                </li>
-            </ul>
-        </div>
- 
-        <!-- 新兴势力 -->
-        <div class="category">
-            <h2>🚀 新兴势力</h2>
-            <ul class="link-list">
-                <li class="link-item">
-                    <a href="https://www.dewu.com"  target="_blank">
-                        <span class="link-icon">👟</span>
-                        得物 
-                        <span class="link-domain">dewu.com</span> 
-                    </a>
-                </li>
-                <li class="link-item">
-                    <a href="https://www.xiaohongshu.com"  target="_blank">
-                        <span class="link-icon">📕</span>
-                        小红书 
-                        <span class="link-domain">xiaohongshu.com</span> 
-                    </a>
-                </li>
-            </ul>
-        </div>
- 
-        <!-- AI创意工具 -->
-        <div class="category">
-            <h2>🤖 AI创意工具</h2>
-            <ul class="link-list">
-                <li class="link-item">
-                    <a href="https://www.liblib.art/inspiration"  target="_blank">
-                        <span class="link-icon">🎨</span>
-                        Liblib艺术灵感 
-                        <span class="link-domain">liblib.art</span> 
-                    </a>
-                </li>
-                <li class="link-item">
-                    <a href="https://vegaai.net/text2Image"  target="_blank">
-                        <span class="link-icon">🖼️</span>
-                        VegaAI文生图 
-                        <span class="link-domain">vegaai.net</span> 
-                    </a>
-                </li>
-                <li class="link-item">
-                    <a href="https://klingai.kuaishou.com/image-to-video/58176481"  target="_blank">
-                        <span class="link-icon">🎥</span>
-                        KlingAI视频生成 
-                        <span class="link-domain">klingai.kuaishou.com</span> 
-                    </a>
-                </li>
-                <li class="link-item">
-                    <a href="https://gemini.google.com/app/9831b92b60b36b10"  target="_blank">
-                        <span class="link-icon">🤖</span>
-                        Gemini助手 
-                        <span class="link-domain">gemini.google.com</span> 
-                    </a>
-                </li>
-            </ul>
-        </div>
- 
-        <!-- 开发与运维 -->
-        <div class="category">
-            <h2>⚙️ 开发与运维</h2>
-            <ul class="link-list">
-                <li class="link-item">
-                    <a href="https://bolt.new/"  target="_blank">
-                        <span class="link-icon">⚡</span>
-                        Bolt快速开发 
-                        <span class="link-domain">bolt.new</span> 
-                    </a>
-                </li>
-                <li class="link-item">
-                    <a href="https://www.spaceship.com/"  target="_blank">
-                        <span class="link-icon">🚀</span>
-                        Spaceship云部署 
-                        <span class="link-domain">spaceship.com</span> 
-                    </a>
-                </li>
-                <li class="link-item">
-                    <a href="https://github.com/"  target="_blank">
-                        <span class="link-icon">🐙</span>
-                        GitHub代码托管 
-                        <span class="link-domain">github.com</span> 
-                    </a>
-                </li>
-                <li class="link-item">
-                    <a href="https://dash.cloudflare.com/"  target="_blank">
-                        <span class="link-icon">🛡️</span>
-                        Cloudflare控制台 
-                        <span class="link-domain">dash.cloudflare.com</span> 
-                    </a>
-                </li>
-            </ul>
-        </div>
- 
-        <!-- 数据分析 -->
-        <div class="category">
-            <h2>📊 数据分析</h2>
-            <ul class="link-list">
-                <li class="link-item">
-                    <a href="https://analytics.google.com/analytics/web/#/provision/create"  target="_blank">
-                        <span class="link-icon">📈</span>
-                        Google Analytics 
-                        <span class="link-domain">analytics.google.com</span> 
-                    </a>
-                </li>
-            </ul>
-        </div>
- 
-        <!-- 文档与协作 -->
-        <div class="category">
-            <h2>📄 文档与协作</h2>
-            <ul class="link-list">
-                <li class="link-item">
-                    <a href="https://bytedance.larkoffice.com/docx/YNj2dVYo7o4L1Uxilq2c6A3Qnuc"  target="_blank">
-                        <span class="link-icon">📝</span>
-                        飞书文档协作 
-                        <span class="link-domain">larkoffice.com</span> 
-                    </a>
-                </li>
-            </ul>
-        </div>
- 
-        <!-- 其他工具 -->
-        <div class="category">
-            <h2>🔧 其他工具</h2>
-            <ul class="link-list">
-                <li class="link-item">
-                    <a href="https://i.meiyijia.com.cn/"  target="_blank">
-                        <span class="link-icon">🏠</span>
-                        美宜家设计平台 
-                        <span class="link-domain">meiyijia.com.cn</span> 
-                    </a>
-                </li>
-                <li class="link-item">
-                    <a href="https://m.ixigua.com/user/86969682615?list_entrance=homepage"  target="_blank">
-                        <span class="link-icon">🎬</span>
-                        西瓜视频创作 
-                        <span class="link-domain">ixigua.com</span> 
-                    </a>
-                </li>
-                <li class="link-item">
-                    <a href="https://scys.com/"  target="_blank">
-                        <span class="link-icon">🔍</span>
-                        SCYS工具平台 
-                        <span class="link-domain">scys.com</span> 
-                    </a>
-                </li>
-                <li class="link-item">
-                    <a href="https://www.jinye.cn/cas/login?service=https%3A%2F%2Fwww.jinye.cn%2Fmarketing-orderplatform%2Fcascallback"  target="_blank">
-                        <span class="link-icon">
+    
+    <footer>
+        <p>&copy; 2024 CANFLY导航. 保留所有权利.</p>
+    </footer>
+</body>
+</html> 
