@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Life Calculator Results</title>
+    <style>
+        body {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 2rem;
+            background-color: #f8f9fa;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 1.5rem;
+        }
+        
+        .result {
+            margin-top: 2rem;
+            padding: 1.5rem;
+            background-color: #f8f9fa;
+            border-radius: 8px;
+        }
+        
+        .motivation {
+            margin-top: 1rem;
+            padding: 1rem;
+            background-color: #e8f4fc;
+            border-radius: 4px;
+            font-style: italic;
+        }
+        
+        .back-button {
+            display: block;
+            margin-top: 2rem;
+            text-align: center;
+            color: #3498db;
+            text-decoration: none;
+        }
+        
+        .back-button:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Life Calculator Results</h1>
+        
+        <div class="result">
+            <h2 id="resultTitle">Your Time Remaining</h2>
+            <div id="timeRemaining"></div>
+            <div class="motivation" id="motivation"></div>
+        </div>
+        
+        <a href="life-calculator.html" class="back-button">← Back to Calculator</a>
+    </div>
+    
+    <script>
+        const motivations = [
+            "Every moment counts - make yours meaningful!",
+            "Time is the most valuable resource - invest it wisely!",
+            "Don't count the days, make the days count!",
+            "Your future is created by what you do today!",
+            "The best time to start was yesterday. The next best time is now!"
+        ];
+        
+        const countryLifeExpectancy = {
+            "US": 78.5,
+            "CN": 76.9,
+            "JP": 84.6,
+            "DE": 81.3,
+            "UK": 81.4
+        };
+        
+        const countryLanguages = {
+            "US": "en",
+            "CN": "zh",
+            "JP": "ja",
+            "DE": "de",
+            "UK": "en"
+        };
+        
+        const translations = {
+            "en": {
+                "title": "Life Calculator Results",
+                "timeRemaining": "Your Time Remaining",
+                "approx": "You have approximately:",
+                "days": "days",
+                "hours": "hours",
+                "minutes": "minutes",
+                "seconds": "seconds",
+                "timeUp": "Time's up! Make the most of every moment!",
+                "back": "← Back to Calculator"
+            },
+            "zh": {
+                "title": "寿命计算结果",
+                "timeRemaining": "您的剩余时间",
+                "approx": "您大约还有:",
+                "days": "天",
+                "hours": "小时",
+                "minutes": "分钟",
+                "seconds": "秒",
+                "timeUp": "时间到！珍惜每一刻！",
+                "back": "← 返回计算器"
+            },
+            "ja": {
+                "title": "寿命計算結果",
+                "timeRemaining": "残り時間",
+                "approx": "残り時間は約:",
+                "days": "日",
+                "hours": "時間",
+                "minutes": "分",
+                "seconds": "秒",
+                "timeUp": "時間切れです！一刻を大切に！",
+                "back": "← 計算機に戻る"
+            },
+            "de": {
+                "title": "Lebensdauer-Ergebnisse",
+                "timeRemaining": "Ihre verbleibende Zeit",
+                "approx": "Sie haben ungefähr noch:",
+                "days": "Tage",
+                "hours": "Stunden",
+                "minutes": "Minuten",
+                "seconds": "Sekunden",
+                "timeUp": "Die Zeit ist um! Nutzen Sie jeden Moment!",
+                "back": "← Zurück zum Rechner"
+            }
+        };
+        
+        function getParameterByName(name) {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(name);
+        }
+        
+        function calculateLife() {
+            const birthdate = new Date(getParameterByName('birthdate'));
+            const country = getParameterByName('country');
+            const customLife = parseFloat(getParameterByName('customLife'));
+            
+            // Update language based on country
+            const lang = countryLanguages[country] || "en";
+            const translation = translations[lang];
+            
+            document.title = translation.title;
+            document.getElementById('resultTitle').textContent = translation.timeRemaining;
+            document.querySelector('.back-button').textContent = translation.back;
+            
+            // Calculate life expectancy
+            const lifeExpectancy = customLife || countryLifeExpectancy[country] || 80;
+            const deathDate = new Date(birthdate);
+            deathDate.setFullYear(birthdate.getFullYear() + lifeExpectancy);
+            
+            // Start countdown timer
+            function updateCountdown() {
+                const now = new Date();
+                const diffTime = deathDate - now;
+                
+                if (diffTime <= 0) {
+                    document.getElementById('timeRemaining').innerHTML = 
+                        `<h3 style="text-align:center;color:#e74c3c;">${translation.timeUp}</h3>`;
+                    return;
+                }
+                
+                const days = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((diffTime % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                 const minutes = Math.floor((diffTime % (1000 * 60 * 60)) / (1000 * 60));
+                 const seconds = Math.floor((diffTime % (1000 * 60)) / 1000);
+                 
+                 // Format with leading zero
+                 const formatTime = (time) => time.toString().padStart(2, '0');
+                
+                document.getElementById('timeRemaining').innerHTML = 
+                    `<p>${translation.approx}</p>
+                    <div style="margin:1rem 0;">
+                          <div style="text-align:center;margin-bottom:1rem;">
+                              <div style="font-size:2.5rem;">${days}</div>
+                              <small>${translation.days}</small>
+                          </div>
+                          <div style="display:flex;justify-content:center;align-items:center;gap:0.5rem;">
+                              <div style="display:flex;justify-content:center;align-items:baseline;gap:0.3rem;">
+                              <div style="text-align:center;width:6rem;">
+                                   <div style="font-size:5rem;">${formatTime(hours)}</div>
+                                   <small>${translation.hours}</small>
+                               </div>
+                               <div style="font-size:5rem;margin-top:0.5rem;">:</div>
+                               <div style="text-align:center;width:6rem;">
+                                   <div style="font-size:5rem;">${formatTime(minutes)}</div>
+                                   <small>${translation.minutes}</small>
+                               </div>
+                               <div style="font-size:5rem;margin-top:0.5rem;">:</div>
+                               <div style="text-align:center;width:6rem;">
+                                   <div style="font-size:5rem;">${formatTime(seconds)}</div>
+                                   <small>${translation.seconds}</small>
+                              </div>
+                          </div>
+                      </div>`;
+            }
+            
+            // Initial update
+            updateCountdown();
+            // Update every second
+            setInterval(updateCountdown, 1000);
+            
+            // Show random motivation
+            const randomMotivation = motivations[Math.floor(Math.random() * motivations.length)];
+            document.getElementById('motivation').textContent = randomMotivation;
+        }
+        
+        // Run calculation when page loads
+        window.onload = calculateLife;
+    </script>
+</body>
+</html>
